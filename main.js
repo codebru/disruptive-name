@@ -10,6 +10,8 @@ const displaySizeX = Math.ceil(width / step);
 const displaySizeY = Math.ceil(height / step);
 
 let display = null;
+let blockPointer = 0;
+const totalBlocks = displaySizeX * displaySizeY;
 
 ctx.canvas.width = width;
 ctx.canvas.height = height;
@@ -23,12 +25,16 @@ function initDisplay(x, y) {
 }
 
 function drawDisplay() {
-  for (let i = 0; i < displaySizeX; i += 1) {
-    for (let ii = 0; ii < displaySizeY; ii += 1) {
-      ctx.fillStyle = "#FF0000";
-      ctx.fillRect(i * step, ii * step, step, step);
-    }
-  }
+  drawBlock(blockPointer);
+  if (blockPointer < totalBlocks - 1) blockPointer += 1;
+  else blockPointer = 0;
+}
+
+function drawBlock(pointer) {
+  row = Math.floor(pointer/displaySizeX);
+  collumn = pointer - (row * displaySizeX);
+  ctx.fillStyle = "#FF0000";
+  ctx.fillRect(row * step, collumn * step, step, step);
 }
 
 function draw() {
@@ -43,6 +49,7 @@ function init() {
 
 function game() {
   draw();
+  setTimeout(game, 100);
 }
 
 init();
