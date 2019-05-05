@@ -10,7 +10,7 @@ const colorDataSize = 6;
 const displaySizeX = Math.ceil(width / step);
 const displaySizeY = Math.ceil(height / step);
 
-let colorMem = [];
+const colorMem = [];
 let blockPointer = 0;
 const totalBlocks = displaySizeX * displaySizeY;
 
@@ -24,12 +24,6 @@ function initColorMem() {
   }
 }
 
-function drawDisplay() {
-  drawBlock(blockPointer);
-  if (blockPointer < totalBlocks - 1) blockPointer += 1;
-  else blockPointer = 0;
-}
-
 function getColorForBlock(pointer) {
   let string = '#';
   for (let i = pointer * colorDataSize, j = 0; j < colorDataSize; i += 1, j += 1) {
@@ -39,15 +33,19 @@ function getColorForBlock(pointer) {
 }
 
 function drawBlock(pointer) {
-  row = Math.floor(pointer/displaySizeX);
-  collumn = pointer - (row * displaySizeX);
+  const row = Math.floor(pointer / displaySizeX);
+  const collumn = pointer - (row * displaySizeX);
   ctx.fillStyle = getColorForBlock(pointer);
   ctx.fillRect(row * step, collumn * step, step, step);
 }
 
+function drawDisplay() {
+  drawBlock(blockPointer);
+  if (blockPointer < totalBlocks - 1) blockPointer += 1;
+  else blockPointer = 0;
+}
+
 function draw() {
-  console.log(ctx.canvas.width);
-  console.log(ctx.canvas.height);
   drawDisplay();
 }
 
