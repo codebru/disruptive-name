@@ -16,6 +16,26 @@ const colorMem = [];
 let blockPointer = 0;
 const totalBlocks = displaySizeX * displaySizeY;
 
+const numToColor = {
+  0: '0',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  10: 'A',
+  11: 'B',
+  12: 'C',
+  13: 'D',
+  14: 'E',
+  15: 'F',
+  16: 'G',
+};
+
 ctx.canvas.width = width;
 ctx.canvas.height = height;
 
@@ -44,7 +64,7 @@ function corruptColorMem() {
   }
 
   for (let i = pointer * colorDataSize, j = 0; j < data.length; i += 1, j += 1) {
-    colorMem[i] = data[j];
+    colorMem[i] = numToColor[data[j]];
   }
 }
 
