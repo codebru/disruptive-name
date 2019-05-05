@@ -10,21 +10,12 @@ const colorDataSize = 6;
 const displaySizeX = Math.ceil(width / step);
 const displaySizeY = Math.ceil(height / step);
 
-let display = null;
 let colorMem = [];
 let blockPointer = 0;
 const totalBlocks = displaySizeX * displaySizeY;
 
 ctx.canvas.width = width;
 ctx.canvas.height = height;
-
-function initDisplay(x, y) {
-  for (let i = 0; i < x; i += 1) {
-    for (let ii = 0; ii < y; ii += 1) {
-      display[i][ii] = "#000000";
-    }
-  }
-}
 
 function initColorMem() {
   const memSize = displaySizeX * displaySizeY * colorDataSize;
@@ -61,7 +52,6 @@ function draw() {
 }
 
 function init() {
-  initDisplay();
   initColorMem();
 }
 
