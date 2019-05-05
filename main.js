@@ -5,11 +5,13 @@ const width = window.innerWidth;
 const height = window.innerHeight;
 
 const step = 10;
+const colorDataSize = 6;
 
 const displaySizeX = Math.ceil(width / step);
 const displaySizeY = Math.ceil(height / step);
 
 let display = null;
+let colorMem = [];
 let blockPointer = 0;
 const totalBlocks = displaySizeX * displaySizeY;
 
@@ -24,16 +26,31 @@ function initDisplay(x, y) {
   }
 }
 
+function initColorMem() {
+  const memSize = displaySizeX * displaySizeY * colorDataSize;
+  for (let i = 0; i < memSize; i += 1) {
+    colorMem[i] = 8;
+  }
+}
+
 function drawDisplay() {
   drawBlock(blockPointer);
   if (blockPointer < totalBlocks - 1) blockPointer += 1;
   else blockPointer = 0;
 }
 
+function getColorForBlock(pointer) {
+  let string = '#';
+  for (let i = pointer * colorDataSize, j = 0; j < colorDataSize; i += 1, j += 1) {
+    string += `${colorMem[i]}`;
+  }
+  return string;
+}
+
 function drawBlock(pointer) {
   row = Math.floor(pointer/displaySizeX);
   collumn = pointer - (row * displaySizeX);
-  ctx.fillStyle = "#FF0000";
+  ctx.fillStyle = getColorForBlock(pointer);
   ctx.fillRect(row * step, collumn * step, step, step);
 }
 
@@ -45,6 +62,7 @@ function draw() {
 
 function init() {
   initDisplay();
+  initColorMem();
 }
 
 function game() {
