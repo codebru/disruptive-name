@@ -96,22 +96,38 @@ function corruptColorMem() {
   }
 }
 
-function police(pointer, expectation) {
-  let offendingString = getColorForBlock(pointer);
-  console.log(offendingString + '...' + expectation);
-  if (offendingString !== expectation) {
-    if (offendingString === crackdownColor) {
-      setColor(pointer, expectedColor);
-    } else {
-      console.log("CALLED");
+function police(pointer) {
+  const val = colorMem[pointer];
+  if (getColorForBlock(pointer) === crackdownColor) {
+    setColor(pointer, expectedColor);
+    return;
+  }
+  for (let i = 1; i < colorDataSize; i += 1) {
+    if (colorMem[pointer + i] !== val) {
       setColor(pointer, crackdownColor);
+      break;
     }
   }
+}
+
+function people() {
+  const pointer = Math.floor(Math.random() * totalBlocks) * colorDataSize;
+  const colorVal = colorMem[pointer];
+  for (let i = 1; i < colorDataSize; i += 1) {
+    if (colorVal !== colorMem[pointer + i]) return;
+  }
+
+  const newColorVal = Math.floor(Math.random() * colorValueRange / 2) + colorValueRange /4;
+  for (let i = 0; i < colorDataSize; i += 1) {
+    colorMem[pointer + i] = newColorVal;
+  }
+  drawBlock(pointer);
 }
 
 function drawDisplay() {
   police(blockPointer, expectedColor);
   drawBlock(blockPointer);
+  people();
   if (blockPointer < (totalBlocks * colorDataSize - 1)) blockPointer += colorDataSize;
   else blockPointer = 0;
 }
