@@ -8,6 +8,7 @@ const step = 10;
 const colorDataSize = 6; // #000000
 const expectedColor = '#888888';
 const crackdownColor = '#000000';
+const cursorColor = '#FFFFFF';
 const colorValueRange = 16; // 0 to F
 const randomRange = 16; // Arbitrary
 
@@ -142,6 +143,7 @@ function drawDisplay() {
     corruptProbablity = Math.random();
   }
   else blockPointer = 0;
+  drawBlockColor(blockPointer, cursorColor)
 }
 
 function draw() {
