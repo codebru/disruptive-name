@@ -94,14 +94,14 @@ function corruptColorMem() {
     data[i] = Math.floor(Math.random() * colorValueRange);
   }
 
-  for (let i = pointer * colorDataSize, j = 0; j < data.length; i += 1, j += 1) {
+  for (let i = pointer, j = 0; j < data.length; i += 1, j += 1) {
     colorMem[i] = numToColor[data[j]];
   }
 
   const blocksToDraw = Math.ceil(randAmount / colorDataSize);
-  const startingPointer = colorDataSize * Math.floor(pointer / colorDataSize)
+  const drawPointer = colorDataSize * Math.floor(pointer / colorDataSize)
   for (let i = 0; i < blocksToDraw; i += 1) {
-    drawBlock(startingPointer + (i * colorDataSize));
+    drawBlock(drawPointer + (i * colorDataSize));
   }
 }
 
