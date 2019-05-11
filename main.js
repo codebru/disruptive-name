@@ -152,9 +152,10 @@ function init() {
   initColorMem();
 }
 
+
 function game() {
+  setTimeout(game, 25);
   draw();
-  setTimeout(game, 0);
   if (corruptProbablity > Math.random()) {
     corruptColorMem();
   }
