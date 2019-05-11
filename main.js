@@ -79,7 +79,11 @@ function drawBlock(pointer) {
 function corruptColorMem() {
   const data = [];
   const pointer = Math.floor(Math.random() * (totalBlocks * colorDataSize));
-  const randAmount = Math.floor(Math.random() * randomRange);
+  let randAmount = Math.floor(Math.random() * randomRange);
+  
+  if (getColorForBlock(pointer) === crackdownColor) {
+    return;
+  }
 
   for (let i = 0; i < randAmount; i += 1) {
     data[i] = Math.floor(Math.random() * colorValueRange);
@@ -128,7 +132,10 @@ function drawDisplay() {
   police(blockPointer, expectedColor);
   drawBlock(blockPointer);
   people();
-  if (blockPointer < (totalBlocks * colorDataSize - 1)) blockPointer += colorDataSize;
+  if (blockPointer < (totalBlocks * colorDataSize - 1)) {
+    blockPointer += colorDataSize;
+    corruptProbablity = Math.random();
+  }
   else blockPointer = 0;
 }
 
@@ -142,8 +149,10 @@ function init() {
 
 function game() {
   draw();
-  corruptColorMem();
   setTimeout(game, 0);
+  if (corruptProbablity > Math.random()) {
+    corruptColorMem();
+  }
 }
 
 init();
