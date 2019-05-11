@@ -68,12 +68,16 @@ function setColor(pointer, colorString) {
   console.log(getColorForBlock(pointer));
 }
 
-function drawBlock(pointer) {
+function drawBlockColor(pointer, color) {
   const location = pointer / colorDataSize;
   const row = Math.floor(location / displaySizeX);
   const collumn = location - (row * displaySizeX);
-  ctx.fillStyle = getColorForBlock(pointer);
+  ctx.fillStyle = color;
   ctx.fillRect(row * step, collumn * step, step, step);
+}
+
+function drawBlock(pointer) {
+  drawBlockColor(pointer, getColorForBlock(pointer));
 }
 
 function corruptColorMem() {
