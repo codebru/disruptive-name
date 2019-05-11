@@ -128,6 +128,7 @@ function people() {
   drawBlock(pointer);
 }
 
+let corruptProbablity = 0.1;
 function drawDisplay() {
   police(blockPointer, expectedColor);
   drawBlock(blockPointer);
